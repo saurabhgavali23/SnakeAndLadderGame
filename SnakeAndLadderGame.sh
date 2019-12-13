@@ -8,6 +8,9 @@ SNAKE=1
 LADDER=2
 
 position=0
+record=1
+
+declare -A gameRecord
 
 while (( $position != 100 ))
 do
@@ -34,4 +37,9 @@ do
 						break
 				fi;;
 	esac
+
+		gameRecord[$record]=$position
+		record=$(($record + 1 ))
 done
+
+echo ${#gameRecord[@]}
