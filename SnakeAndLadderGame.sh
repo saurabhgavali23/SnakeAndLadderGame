@@ -9,9 +9,9 @@ LADDER=2
 
 dieRoll=$((1+RANDOM%6))
 position=0
-msl=$((RANDOM%3))
+move=$((RANDOM%3))
 
-case $msl in
+case $move in
 
 	$NO_MOVE)
 			echo "No Move";;
