@@ -7,14 +7,15 @@ No_Move=0
 SNAKE=1
 LADDER=2
 
-dieRoll=$((1+RANDOM%6))
 position=0
 
-while (( $position <= 100 ))
+while (( $position != 100 ))
 do
 
-	move=$((RANDOM%3))
-	case $move in
+	dieRoll=$((1+RANDOM%6))
+	playerMove=$((RANDOM%3))
+
+	case $playerMove in
 
 		$NO_MOVE)
 				echo "No Move";;
@@ -23,9 +24,14 @@ do
 
 				if (( $position < 0 ))
 				then
-						$position=0
+						position=0
 				fi;;
 		$LADDER)
-				position=$(( $position + $dieRoll ));;
+				position=$(( $position + $dieRoll ))
+
+				if (( $position == 100 ))
+				then
+						break
+				fi;;
 	esac
 done
