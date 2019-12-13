@@ -9,14 +9,23 @@ LADDER=2
 
 dieRoll=$((1+RANDOM%6))
 position=0
-msl=$((RANDOM%3))
 
-case $msl in
+while (( $position <= 100 ))
+do
 
-	$NO_MOVE)
-			echo "No Move";;
-	$SNAKE)
-			position=$(( $position - $dieRoll ));;
-	$LADDER)
-			position=$(( $position + $dieRoll ));;
-esac
+	move=$((RANDOM%3))
+	case $move in
+
+		$NO_MOVE)
+				echo "No Move";;
+		$SNAKE)
+				position=$(( $position - $dieRoll ))
+
+				if (( $position < 0 ))
+				then
+						$position=0
+				fi;;
+		$LADDER)
+				position=$(( $position + $dieRoll ));;
+	esac
+done
