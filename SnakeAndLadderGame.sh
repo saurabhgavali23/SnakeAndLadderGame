@@ -9,7 +9,7 @@ LADDER=2
 
 position=0
 
-while (( $position != 100 ))
+while (( $position < 100 ))
 do
 
 	dieRoll=$((1+RANDOM%6))
@@ -22,16 +22,16 @@ do
 		$SNAKE)
 				position=$(( $position - $dieRoll ))
 
-				if (( $position < 0 ))
+				if (( $position < $START_POSITION ))
 				then
-						position=0
+						position=$START_POSTITION
 				fi;;
 		$LADDER)
 				position=$(( $position + $dieRoll ))
 
-				if (( $position == 100 ))
+				if (( $position > 100 ))
 				then
-						break
+						position=$(( $position - $dieRoll ))
 				fi;;
 	esac
 done
