@@ -9,8 +9,7 @@ LADDER=2
 
 position=0
 record=1
-
-declare -A gameRecord
+totalDice=0
 
 while (( $position < 100 ))
 do
@@ -22,6 +21,7 @@ do
 
 		$NO_MOVE)
 				echo "No Move";;
+
 		$SNAKE)
 				position=$(( $position - $dieRoll ))
 
@@ -29,6 +29,7 @@ do
 				then
 						position=$START_POSITION
 				fi;;
+
 		$LADDER)
 				position=$(( $position + $dieRoll ))
 
@@ -38,6 +39,5 @@ do
 				fi;;
 	esac
 
-		gameRecord[$record]=$position
-		record=$(($record + 1 ))
+		totalDice=$(( $totalDice + 1 ))
 done
