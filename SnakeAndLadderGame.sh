@@ -19,6 +19,7 @@ do
 
 		$NO_MOVE)
 				echo "No Move";;
+
 		$SNAKE)
 				position=$(( $position - $dieRoll ))
 
@@ -26,6 +27,7 @@ do
 				then
 						position=$START_POSTITION
 				fi;;
+
 		$LADDER)
 				position=$(( $position + $dieRoll ))
 
