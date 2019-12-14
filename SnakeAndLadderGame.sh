@@ -9,6 +9,7 @@ LADDER=2
 
 position=0
 record=1
+totalDice=0
 
 function checkWhoIsWinner(){
 
@@ -53,12 +54,12 @@ function main(){
 
 	echo "Player 1 Total Dice $player1"
 	echo "Player 2 Total Dice $player2"
+
 	if(( $player1 < $player2 ))
 	then
-		echo "Player 1 Winner $player1"
+		echo "Player 1 Winner"
 	else
-		echo "Player 2 Winner $player2"
+		echo "Player 2 Winner"
 	fi
 }
 
-main
