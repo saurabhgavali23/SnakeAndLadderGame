@@ -3,59 +3,64 @@
 echo "Welcome to Snake And Ladder Game"
 
 START_POSITION=0
-No_Move=0
+NO_MOVE=0
 SNAKE=1
 LADDER=2
 
-position=0
-record=1
-totalDice=0
-
 function checkWhoIsWinner(){
 
-	while (( $position < 100 ))
-	do
+	position=$1
+	dieCount=$2
+	dieRoll=$((1+RANDOM%6))
+	playerMove=$((RANDOM%3))
 
-		dieRoll=$((1+RANDOM%6))
-		playerMove=$((RANDOM%3))
+	case $playerMove in
 
-		case $playerMove in
+		$NO_MOVE)
+				position=$(( $position + 0 ));;
 
-			$NO_MOVE)
-					echo "No Move";;
+		$SNAKE)
+				position=$(( $position - $dieRoll ))
 
-			$SNAKE)
+				if (( $position < $START_POSITION ))
+				then
+					position=$START_POSITION
+				fi;;
+
+		$LADDER)
+				position=$(( $position + $dieRoll ))
+
+				if (( $position > 100 ))
+				then
 					position=$(( $position - $dieRoll ))
+				fi;;
+	esac
 
-					if (( $position < $START_POSITION ))
-					then
-						position=$START_POSITION
-					fi;;
-
-			$LADDER)
-					position=$(( $position + $dieRoll ))
-
-					if (( $position > 100 ))
-					then
-						position=$(( $position - $dieRoll ))
-					fi;;
-		esac
-
-			totalDice=$(( $totalDice + 1 ))
-	done
-
-	echo $totalDice
+		((dieCount++))
+		echo $dieCount $position
 }
 
 function main(){
 
-	player1=$( checkWhoIsWinner )
-	player2=$( checkWhoIsWinner )
+	player1Pos=0
+	player2Pos=0
+	totalDice1=0
+	totalDice2=0
+	dieCount=0
 
-	echo "Player 1 Total Dice $player1"
-	echo "Player 2 Total Dice $player2"
+	while (( $player1Pos != 100 && $player2Pos != 100 ))
+	do
+			read totalDice1 player1Pos < <( checkWhoIsWinner $player1Pos $totalDice1 )
+			totalDice2=$(( $totalDice1 + $dieCount ))
 
-	if(( $player1 < $player2 ))
+			read totalDice2 player2Pos < <( checkWhoIsWinner $player2Pos $totalDice2 )
+			totalDice2=$(( $totalDice2 + $dieCount ))
+	done
+
+	echo "Player 1 Total Dice $totalDice1"
+	echo "Player 2 Total Dice $totalDice2"
+
+	if (( $player1Pos > $player2Pos ))
 	then
 		echo "Player 1 Winner"
 	else
@@ -63,3 +68,4 @@ function main(){
 	fi
 }
 
+main
